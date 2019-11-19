@@ -6,8 +6,17 @@
 #include <errno.h>
 #include <dirent.h>
 
-int main(){
-  DIR * dir = opendir("./");
+int main(int argc, char *argv[]){
+  DIR * dir;
+  char * directory = malloc(100);
+  if (argc <= 1){
+    printf("Enter directory name:\n");
+    fgets(directory, 100, stdin);
+    directory[strlen(directory) - 1] = 0;
+  } else {
+    directory = argv[1];
+  }
+  dir = opendir(directory);
   if(errno){
     printf("%d: %s\n", errno, strerror(errno));
   }
